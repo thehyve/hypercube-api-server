@@ -29,6 +29,7 @@ import org.transmartproject.common.dto.Counts;
 import org.transmartproject.common.dto.NumericalValueAggregates;
 import org.transmartproject.common.type.Sex;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class AggregateEndpointTests {
                 .patient(p1)
                 .encounterId(-1L)
                 .valueType(ValueType.Number)
-                .numericalValue(2F)
+                .numericalValue(new BigDecimal(2F))
                 .concept("c1")
                 .instance(1)
                 .trialVisit(tv1)
@@ -93,7 +94,7 @@ public class AggregateEndpointTests {
                 .patient(p2)
                 .encounterId(-1L)
                 .valueType(ValueType.Number)
-                .numericalValue(3F)
+                .numericalValue(new BigDecimal(3F))
                 .concept("c1")
                 .instance(1)
                 .trialVisit(tv2)

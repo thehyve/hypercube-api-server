@@ -1,6 +1,9 @@
 package nl.thehyve.hypercubeapi.dimension;
 
 import lombok.*;
+import nl.thehyve.hypercubeapi.type.Density;
+import nl.thehyve.hypercubeapi.type.Packable;
+import nl.thehyve.hypercubeapi.type.Size;
 import nl.thehyve.hypercubeapi.type.ValueType;
 import org.transmartproject.common.type.DimensionType;
 
@@ -24,7 +27,7 @@ public class DimensionEntity {
     private String name;
 
     @Column(name = "density")
-    private String density;
+    private Density density;
 
     @Column(name = "modifier_code")
     private String modifierCode;
@@ -33,10 +36,10 @@ public class DimensionEntity {
     private ValueType valueType;
 
     @Column(name = "packable")
-    private Boolean packable;
+    private Packable packable;
 
     @Column(name = "size_cd")
-    private String sizeCode;
+    private Size size;
 
     @Column(name = "dimension_type")
     private DimensionType dimensionType;

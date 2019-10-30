@@ -3,6 +3,7 @@ package nl.thehyve.hypercubeapi.observation;
 import nl.thehyve.hypercubeapi.query.HibernateCriteriaQueryBuilder;
 import nl.thehyve.hypercubeapi.query.dimension.DimensionRegistry;
 import nl.thehyve.hypercubeapi.type.ValueType;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +11,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.internal.StatelessSessionImpl;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.transmartproject.common.dto.NumericalValueAggregates;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,13 +43,13 @@ public class AggregateService {
     }
 
     Counts counts(@Valid Constraint constraint) {
-        Session session = sessionFactory.openSession();
+        StatelessSessionImpl session = (StatelessSessionImpl) sessionFactory.openStatelessSession();
         Transaction tx = session.beginTransaction();
 
         HibernateCriteriaQueryBuilder queryBuilder = HibernateCriteriaQueryBuilder.forAllStudies(dimensionRegistry);
         Criterion criterion = queryBuilder.build(constraint);
         try {
-            DetachedCriteria criteria = DetachedCriteria.forClass(ObservationEntity.class);
+            Criteria criteria = session.createCriteria(ObservationEntity.class);
             criteria.add(criterion);
             criteria.add(HibernateCriteriaQueryBuilder.defaultModifierCriterion);
             criteria.setProjection(Projections.projectionList()
@@ -54,7 +57,7 @@ public class AggregateService {
                 .add(Projections.countDistinct("patient"), "patientCount")
             );
             criteria.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-            Map row = (Map)criteria.getExecutableCriteria(session).uniqueResult();
+            Map row = (Map)criteria.uniqueResult();
             tx.commit();
             return Counts.builder()
                 .observationCount((Long)row.get("observationCount"))
@@ -187,8 +190,8 @@ public class AggregateService {
             return rows.stream().collect(Collectors.toMap(
                 (Map row) -> (String)row.get("concept"),
                 (Map row) -> NumericalValueAggregates.builder()
-                    .min(((Float)row.get("min")).doubleValue())
-                    .max(((Float)row.get("max")).doubleValue())
+                    .min(((BigDecimal)row.get("min")).doubleValue())
+                    .max(((BigDecimal)row.get("max")).doubleValue())
                     .avg(((Double)row.get("avg")))
                     .count(((Long)row.get("count")).intValue())
                     .stdDev(((Double)row.get("stdDev")))

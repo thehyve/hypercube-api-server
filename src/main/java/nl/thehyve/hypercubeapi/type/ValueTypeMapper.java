@@ -2,6 +2,8 @@ package nl.thehyve.hypercubeapi.type;
 
 import org.mapstruct.Mapper;
 
+import java.math.BigDecimal;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -25,6 +27,22 @@ public abstract class ValueTypeMapper {
                     Arrays.stream(ValueType.values()).map(ValueType::getCode).collect(Collectors.joining(", ")))
                 );
         }
+    }
+
+    public org.transmartproject.common.type.ValueType classToValueType(Class type) {
+        if (String.class.isAssignableFrom(type)) {
+            return org.transmartproject.common.type.ValueType.String;
+        } else if (Double.class.isAssignableFrom(type) ||
+            BigDecimal.class.isAssignableFrom(type) ||
+            Float.class.isAssignableFrom(type)
+        ) {
+            return org.transmartproject.common.type.ValueType.Double;
+        } else if (Number.class.isAssignableFrom(type)) {
+            return org.transmartproject.common.type.ValueType.Int;
+        } else if (Date.class.isAssignableFrom(type) || TemporalAccessor.class.isAssignableFrom(type)) {
+            return org.transmartproject.common.type.ValueType.Timestamp;
+        }
+        return org.transmartproject.common.type.ValueType.Object;
     }
 
     public org.transmartproject.common.type.ValueType mapValueType(ValueType valueType) {

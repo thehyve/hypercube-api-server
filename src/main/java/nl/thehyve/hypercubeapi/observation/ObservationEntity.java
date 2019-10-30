@@ -7,6 +7,7 @@ import nl.thehyve.hypercubeapi.type.ValueType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -87,9 +88,15 @@ public class ObservationEntity {
     private String textValue;
 
     @Column(name = "nval_num")
-    private Float numericalValue;
+    private BigDecimal numericalValue;
 
-    @Column(name = "observation_blob")
+    @Column(name = "observation_blob", columnDefinition = "text")
     private String rawTextValue;
+
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
+
+    @Column(name = "location_cd", length = 50)
+    private String location;
 
 }

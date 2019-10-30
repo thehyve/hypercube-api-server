@@ -7,6 +7,7 @@ import nl.thehyve.hypercubeapi.database.StringUtils;
 import nl.thehyve.hypercubeapi.dimension.DimensionEntity;
 import nl.thehyve.hypercubeapi.concept.ConceptEntity;
 import nl.thehyve.hypercubeapi.observation.ModifierEntity;
+import nl.thehyve.hypercubeapi.query.dimension.Dimension;
 import nl.thehyve.hypercubeapi.trialvisit.TrialVisitEntity;
 import nl.thehyve.hypercubeapi.visit.VisitEntity;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
@@ -40,7 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static nl.thehyve.hypercubeapi.query.dimension.DimensionImpl.ImplementationType.*;
 import static org.transmartproject.common.type.Operator.*;
 
 /**
@@ -77,11 +77,11 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
         return new HibernateCriteriaQueryBuilder(true, null, dimensionRegistry);
     }
 
-    private final DimensionMetadata valueMetadata =  DimensionRegistry.forDimension(DimensionRegistry.VALUE);
-    private final Field valueTypeField = valueMetadata.getMappedField("valueType");
-    private final Field numberValueField = valueMetadata.getMappedField("numericalValue");
-    private final Field textValueField = valueMetadata.getMappedField("textValue");
-    private final Field rawTextValueField = valueMetadata.getMappedField("rawTextValue");
+    private final DimensionMetadata valueMetadata;
+    private final Field valueTypeField;
+    private final Field numberValueField;
+    private final Field textValueField;
+    private final Field rawTextValueField;
     private final Field patientIdField = Field.builder().dimension("patient").fieldName("id").type(DataType.Id).build();
     private final Field startTimeField = Field.builder().dimension("start time").fieldName("startDate").type(DataType.Date).build();
 
@@ -96,6 +96,11 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
         this.accessToAllStudies = accessToAllStudies;
         this.studies = studies;
         this.dimensionRegistry = dimensionRegistry;
+        this.valueMetadata = dimensionRegistry.forDimensionName("value");
+        this.valueTypeField = valueMetadata.getMappedField("valueType");
+        this.numberValueField = valueMetadata.getMappedField("numericalValue");
+        this.textValueField = valueMetadata.getMappedField("textValue");
+        this.rawTextValueField = valueMetadata.getMappedField("rawTextValue");
     }
 
     private HibernateCriteriaQueryBuilder subQueryBuilder() {
@@ -142,7 +147,7 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
                 break;
         }
         String dimensionAlias;
-        if (metadata.getType() == VISIT) {
+        if (metadata.getType() == Dimension.ImplementationType.VISIT) {
             dimensionAlias = "visit";
         } else {
             dimensionAlias = getAlias(metadata.getFieldName());
@@ -568,7 +573,7 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
 
         constraintSubQuery.setProjection(projection);
 
-        if (dimension.getType() ==  STUDY) {
+        if (dimension.getType() == Dimension.ImplementationType.STUDY) {
             // What we actually want is something like
             //
             // def subquery = subQueryBuilder().buildCriteria(constraint.constraint)
@@ -592,7 +597,7 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
             return subQuery2;
         }
 
-        if (dimension.getType() ==  MODIFIER) {
+        if (dimension.getType() ==  Dimension.ImplementationType.MODIFIER) {
             DetachedCriteria hasModifierSubQuery = DetachedCriteria.forClass(ObservationEntity.class, "has_mods_obf");
             hasModifierSubQuery.setProjection(projection);
             ModifierDimension modifierDimension = (ModifierDimension) dimension.getDimension();
@@ -932,63 +937,6 @@ public class HibernateCriteriaQueryBuilder extends ConstraintBuilder<Criterion> 
     DetachedCriteria buildCriteria(Constraint constraint) {
         return buildCriteria(constraint, defaultModifierCriterion, Collections.emptySet());
     }
-
-
-    /**
-     * Builds a DetachedCriteria object representing the query for elements of specified dimension
-     *
-     * @param constraint
-     * @return
-     */
-    /*
-    private DetachedCriteria buildElementsCriteria(DimensionImpl dimension, Constraint constraint) {
-        DetachedCriteria constraintCriteria = buildCriteria(constraint, null);
-
-        return dimension.selectDimensionElements(constraintCriteria);
-    }
-    */
-
-    /*
-    DetachedCriteria buildElementCountCriteria(DimensionImpl dimension, Constraint constraint) {
-        DetachedCriteria constraintCriteria = buildCriteria(constraint, null);
-
-        return dimension.elementCount(constraintCriteria);
-    }
-    */
-
-    /**
-     * FIXME
-     *
-     * Apply constraints to criteria
-     *
-     * criteria must be a criteria on observation_fact
-     * @param criteria
-     * @param constraint
-     */
-    /*
-    void applyToCriteria(CriteriaImpl criteria, Collection<Constraint> constraints) {
-        // grab existing aliases.
-        // Note: If projection aliases are reused in the constraints, the alias is assumed to be the same as the
-        // property.
-        // TODO: refactor all of this so we don't need to access privates here
-        aliases = (criteria.projection as ProjectionList).aliases.collectEntries {[it, it]}
-        aliases["observation_fact"] = criteria.alias
-        criteria.iterateSubcriteria().each { CriteriaImpl.Subcriteria sub ->
-            aliases[sub.path] = sub.alias
-        }
-        def alreadyAddedAliases = aliases.keySet() + ["observation_fact"]
-        def criterion = build(new Combination(Operator.AND, constraints as List<Constraint>))
-        if (!accessToAllStudies) {
-            criterion = Restrictions.and(criterion, studiesCriterion)
-        }
-        this.aliases.each { property, alias ->
-            if(!(property in alreadyAddedAliases)) {
-                criteria.createAlias(property, alias)
-            }
-        }
-        criteria.add(criterion)
-        criteria
-    }*/
 
     /**
      * Returns a criterion that filters on studies.

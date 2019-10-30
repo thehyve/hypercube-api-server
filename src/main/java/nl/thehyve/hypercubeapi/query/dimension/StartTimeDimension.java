@@ -1,15 +1,18 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
+import lombok.Getter;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
+import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Data
-public class StartTimeDimension extends I2b2NullablePKDimension<Date> {
+public class StartTimeDimension extends I2b2NullablePKDimension<Date, Date> {
 
     public static final Date EMPTY_DATE;
     static {
@@ -20,12 +23,30 @@ public class StartTimeDimension extends I2b2NullablePKDimension<Date> {
         }
     }
 
-    Class elemType = Date.class;
-    String name = "start time";
+    public static final String ALIAS = "startDate";
 
-    String alias = "startDate";
+    Class elementType = Date.class;
+    String name = "start time";
+    String alias = ALIAS;
     String columnName = "startDate";
     Date nullValue = EMPTY_DATE;
     ImplementationType implementationType = ImplementationType.COLUMN;
+    @Getter
+    boolean elementsSerializable = true;
+
+    @Override
+    public Date getKey(Date element) {
+        return element;
+    }
+
+    @Override
+    public List<Date> resolveElements(List<Date> keys) {
+        return keys;
+    }
+
+    @Override
+    public void selectIDs(HypercubeQuery query) {
+
+    }
 
 }

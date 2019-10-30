@@ -2,14 +2,7 @@ package nl.thehyve.hypercubeapi.tree;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.transmartproject.common.dto.TreeNode;
-import org.transmartproject.common.type.TreeNodeType;
-import org.transmartproject.common.type.VisualAttribute;
-
-import java.util.Arrays;
-import java.util.EnumSet;
 
 public class TreeEntityTests {
 

@@ -2,7 +2,9 @@ package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
 import nl.thehyve.hypercubeapi.query.HibernateCriteriaQueryBuilder;
+import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import nl.thehyve.hypercubeapi.study.StudyEntity;
+import nl.thehyve.hypercubeapi.study.StudyRepository;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Subqueries;
@@ -11,16 +13,19 @@ import java.util.Arrays;
 import java.util.List;
 
 @Data
-public class StudyDimension extends I2b2Dimension {
-    Class elemType = StudyEntity.class;
-    List elemFields = Arrays.asList("name");
+public class StudyDimension extends I2b2Dimension<String, StudyEntity> {
+
+    public static final String ALIAS = "studyName";
+
+    Class elementType = StudyEntity.class;
+    List elemFields = Arrays.asList("studyId");
     String name = "study";
-    String alias = "studyName";
+    String alias = ALIAS;
 
     public String getColumnName() {
         throw new UnsupportedOperationException();
     }
-    String keyProperty = "name";
+    String keyProperty = "studyId";
     ImplementationType implementationType = ImplementationType.STUDY;
 
     public DetachedCriteria selectDimensionElements(DetachedCriteria criteria) {
@@ -31,6 +36,30 @@ public class StudyDimension extends I2b2Dimension {
         dimensionCriteria.createAlias("trialVisits", "trialVisits");
         dimensionCriteria.add(Subqueries.propertyIn("trialVisits.id", criteria));
         return dimensionCriteria;
+    }
+
+    private final StudyRepository studyRepository;
+
+    StudyDimension(StudyRepository studyRepository) {
+        this.studyRepository = studyRepository;
+    }
+
+    @Override
+    public String getKey(StudyEntity element) {
+        return element.getStudyId();
+    }
+
+    @Override
+    public List<StudyEntity> resolveElements(List<String> keys) {
+        return this.studyRepository.findAllByStudyId(keys);
+    }
+
+    @Override
+    public void selectIDs(HypercubeQuery query) {
+        query.getCriteria()
+            .createAlias("trialVisit", TrialVisitDimension.ALIAS)
+            .createAlias(TrialVisitDimension.ALIAS + ".study", "study");
+        // FIXME query.getProjections().add(Projections.property("study"), getAlias());
     }
 
 }

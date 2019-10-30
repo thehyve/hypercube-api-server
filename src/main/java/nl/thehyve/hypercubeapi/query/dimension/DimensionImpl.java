@@ -4,81 +4,95 @@ package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import nl.thehyve.hypercubeapi.observation.ObservationEntity;
+import nl.thehyve.hypercubeapi.type.Density;
 import org.transmartproject.common.type.DimensionType;
 
-import java.util.Map;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data @NoArgsConstructor
-public abstract class DimensionImpl {
+public abstract class DimensionImpl<KeyType, ElementType> implements Dimension<KeyType, ElementType> {
 
     private DimensionType dimensionType;
+    private Density density;
     private Integer sortIndex;
     private String modifierCode;
 
-    DimensionImpl(DimensionType dimensionType, Integer sortIndex, String modifierCode) {
+    DimensionImpl(DimensionType dimensionType, Density density, Integer sortIndex, String modifierCode) {
         this.dimensionType = dimensionType;
+        this.density = density;
         this.sortIndex = sortIndex;
         this.modifierCode = modifierCode;
     }
 
     public abstract String getName();
 
-    /** The internal element type */
-    protected abstract Class getElemType();
-
-    abstract ImplementationType getImplementationType();
-
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
     }
 
-    static boolean isSerializableType(Class t) {
+    KeyType getKey(Map<String, Object> map, String alias) {
+        if (!map.containsKey(alias)) {
+            throw new IllegalArgumentException(String.format(
+                "Result map %s does not contain key %s", map, alias));
+        }
+        return (KeyType)map.get(alias);
+    }
+
+    @Override
+    public ElementType resolveElement(KeyType key) {
+        return this.resolveElements(Collections.singletonList(key)).get(0);
+    }
+
+    static boolean isSerializableType(String dimensionName, Class t) {
+        if (t == null) {
+            throw new RuntimeException(String.format("No type specified for dimension %s", dimensionName));
+        }
         return Stream.of(Number.class, String.class, Date.class)
             .anyMatch((Class<?> c) -> c.isAssignableFrom(t));
     };
 
-    /**
-     * Differences between serializable and non-serializable element types are implemented by extending the
-     * SerializableElemDim trait. This method verifies that the element type is consistent with the usage of this trait.
-     */
-    final void verify() {
-        assert getElemType() != null;
+    public boolean isElementsSerializable() {
+        return false;
     }
 
-    static<ELKey, ELT> void sort(List<ELT> res, List<ELKey> elementKeys, String property) {
-        if (res.size() > 0) {
-            Map<ELKey, ELT> ids = new HashMap<>(res.size(), 1.0f);
-            for (ELT object: res) {
-                ids.put(((Map<String, ELKey>)object).get(property), object);
+    public List<String> getElemFields() {
+        return null;
+    };
+
+    public List<Property> getElementFields() {
+        return getElemFields().stream().map(it -> {
+            try {
+                Field field = getElementType().getDeclaredField(it);
+                if (field == null) {
+                    throw new RuntimeException(String.format(
+                        "Property %s does not exist on type %s", it, getElementType().getSimpleName()));
+                }
+                return new PropertyImpl<>(it, it, field.getType());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(String.format(
+                    "Property %s does not exist on type %s", it, getElementType().getSimpleName()), e);
             }
-            res.clear();
-            for (ELKey key: elementKeys) {
-                res.add(ids.get(key));
+        }).collect(Collectors.toUnmodifiableList());
+    }
+
+    void verify() {
+        if (this.isElementsSerializable()) {
+            if (!getName().equals("value") && !isSerializableType(getName(), getElementType())) {
+                throw new RuntimeException(String.format(
+                    "Dimension %s is marked serializable, but element type %s is not serializable.",
+                    getName(), getElementType().getSimpleName()));
+            }
+        } else {
+            if (getElemFields() == null) {
+                throw new RuntimeException(String.format(
+                    "Dimension %s is marked not serializable, but no element fields have been defined.",
+                    getName()));
             }
         }
     }
 
-    /**
-     * Metadata about the fetching method for the dimension.
-     * The dimension may be represented by a dimension table (<code>TABLE</code>),
-     * a column in the {@link ObservationEntity} table (<code>COLUMN</code>) or as
-     * a modifier, which means that the data is stored in another, related, row
-     * in the {@link ObservationEntity} table (<code>MODIFIER</code>).
-     */
-    public enum ImplementationType {
-        TABLE,
-        COLUMN,
-        VALUE,
-        MODIFIER,
-        STUDY,
-        VISIT
-    }
 }
-
-// Nullable primary key

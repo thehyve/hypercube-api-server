@@ -3,10 +3,10 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
+import nl.thehyve.hypercubeapi.query.dimension.Dimension.ImplementationType;
 import nl.thehyve.hypercubeapi.visit.VisitEntity;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
 import nl.thehyve.hypercubeapi.observation.ObservationEntity;
-import nl.thehyve.hypercubeapi.query.dimension.DimensionImpl.ImplementationType;
 import nl.thehyve.hypercubeapi.study.StudyEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static nl.thehyve.hypercubeapi.query.dimension.DimensionImpl.ImplementationType.*;
+import static nl.thehyve.hypercubeapi.query.dimension.Dimension.ImplementationType.*;
 
 /**
  * Contains database mapping metadata for the dimensions.
@@ -27,12 +27,12 @@ public class DimensionMetadata {
 
     private static final Logger log = LoggerFactory.getLogger(DimensionMetadata.class);
 
+    Dimension dimension;
+    Class domainClass;
+
     public ImplementationType getType() {
         return dimension.getImplementationType();
     }
-
-    DimensionImpl dimension;
-    Class domainClass;
 
     public String getFieldName() {
         if (!(dimension instanceof I2b2Dimension)){
@@ -71,7 +71,7 @@ public class DimensionMetadata {
         return Field.builder().dimension(this.dimension.getName()).type(type).fieldName(field.getName()).build();
     }
 
-    DimensionMetadata(DimensionImpl dim) {
+    DimensionMetadata(Dimension dim) {
         this.dimension = dim;
 
         log.info(String.format("Registering dimension %s ...", dim.getName()));
@@ -90,13 +90,13 @@ public class DimensionMetadata {
                     .map((java.lang.reflect.Field field) -> getMappedField(field.getName()))
                     .collect(Collectors.toList());
             }
-        } else if (getType() == ImplementationType.STUDY) {
+        } else if (getType() == STUDY) {
             this.domainClass = StudyEntity.class;
             this.fields = Stream.of(this.domainClass.getDeclaredFields()).
                 filter((java.lang.reflect.Field field) -> !field.isSynthetic())
                 .map((java.lang.reflect.Field field) -> getMappedField(field.getName()))
                 .collect(Collectors.toList());
-        } else if (getType() == ImplementationType.VISIT) {
+        } else if (getType() == VISIT) {
             this.domainClass = VisitEntity.class;
             this.fields = Stream.of(this.domainClass.getDeclaredFields()).
                 filter((java.lang.reflect.Field field) -> !field.isSynthetic())

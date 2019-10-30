@@ -29,6 +29,9 @@ public enum ValueType {
     }
 
     public static ValueType forCode(String code) {
+        if (code == null) {
+            return None;
+        }
         code = code.toUpperCase();
         return mapping.getOrDefault(code, None);
     }

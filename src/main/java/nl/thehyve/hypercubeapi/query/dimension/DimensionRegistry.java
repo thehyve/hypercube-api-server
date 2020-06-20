@@ -101,6 +101,7 @@ public class DimensionRegistry {
                 dimensionNames.add(dimension.getName());
             }
         }
+        log.info("Dimensions: {}", dimensions.stream().map(Dimension::getName).collect(Collectors.joining(", ")));
         return dimensions;
     }
 

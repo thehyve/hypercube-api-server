@@ -132,7 +132,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
@@ -150,7 +150,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
@@ -168,7 +168,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
@@ -191,7 +191,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
@@ -214,7 +214,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 
@@ -233,7 +233,7 @@ public class AggregateEndpointTests {
                     TrueConstraint.builder().build()
                 ).build())))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().json(new ObjectMapper().writeValueAsString(expected)));
     }
 

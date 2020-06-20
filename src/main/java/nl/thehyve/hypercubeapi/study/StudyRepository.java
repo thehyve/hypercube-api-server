@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface StudyRepository extends JpaRepository<StudyEntity, Long> {
 
-    List<StudyEntity> findAllByStudyId(List<String> studyIds);
+    List<StudyEntity> findAllByStudyIdIsIn(List<String> studyIds);
 
 }

@@ -56,7 +56,7 @@ public class TreeEndpointTests {
         mockMvc.perform(MockMvcRequestBuilders.get(
             "/v2/tree_nodes?root=\\"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.tree_nodes").value(hasSize(1)));
     }
 

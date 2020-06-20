@@ -60,12 +60,12 @@ public class StudyEndpointTests {
         mockMvc.perform(MockMvcRequestBuilders.get(
             "/v2/studies"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.studies").value(hasSize(2)));
         mockMvc.perform(MockMvcRequestBuilders.get(
             String.format("/v2/studies/%d", testStudyId)))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.studyId").value("STUDY_1"));
     }
 

@@ -51,7 +51,7 @@ public class StudyDimension extends I2b2Dimension<String, StudyEntity> {
 
     @Override
     public List<StudyEntity> resolveElements(List<String> keys) {
-        return this.studyRepository.findAllByStudyId(keys);
+        return this.studyRepository.findAllByStudyIdIsIn(keys);
     }
 
     @Override

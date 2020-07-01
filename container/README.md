@@ -1,4 +1,4 @@
-# Running variant store connector in a container
+# Running the Hypercube API server in a container
 
 ## Container tools
 
@@ -9,9 +9,9 @@ Check its page for details.
 
 Fedora and RHEL (CentOS) distros have these tools in standard repositories.
 
-For installing them in Ubuntu distro check [Project Atomic PPA](https://launchpad.net/~projectatomic/+archive/ubuntu/ppa).
+For installing them in Ubuntu, check [Project Atomic PPA](https://launchpad.net/~projectatomic/+archive/ubuntu/ppa).
 
-After installation check if you have `/etc/containers/registries.conf` file with some content, similar to:
+After installation, check if you have the `/etc/containers/registries.conf` file, with some content similar to:
 ```
 [registries.search]
 registries = ['docker.io', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org']
@@ -29,19 +29,17 @@ To copy the image to the local Docker repository, run:
 skopeo copy containers-storage:docker.io/thehyve/hypercube-api-server:latest docker-daemon:thehyve/hypercube-api-server:latest
 ```
 
-## Getting prebuilded images from The Hyve
+## Getting pre-built images
 
-We have already prebuilded images at Docker Hub.
-You can get one by runnung one of following commands:
+We have already [pre-built images at Docker Hub](https://hub.docker.com/r/thehyve/hypercube-api-server).
+You can get one by running one of following commands:
 * Podman
     ```bash
-    podman pull docker.io/thehyve/hypercube-api-server:latest
-    podman pull docker.io/thehyve/hypercube-api-server:0.0.1
+    podman pull docker.io/thehyve/hypercube-api-server:0.0.2
     ```
 * Docker
     ```bash
-    docker pull thehyve/hypercube-api-server:latest
-    docker pull thehyve/hypercube-api-server:0.0.1
+    docker pull thehyve/hypercube-api-server:0.0.2
     ```
 
 ## Running a container
@@ -49,11 +47,9 @@ You can get one by runnung one of following commands:
 To run an instance of variant store container run one of following commands:
 * Podman
     ```bash
-    podman run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com/auth --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client docker.io/thehyve/hypercube-api-server:latest
-    podman run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com/auth --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client docker.io/thehyve/hypercube-api-server:0.0.1
+    podman run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client docker.io/thehyve/hypercube-api-server:0.0.2
     ```
 * Docker
     ```bash
-    docker run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com/auth --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client thehyve/hypercube-api-server:latest
-    docker run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com/auth --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client thehyve/hypercube-api-server:0.0.1
+    docker run -p 9090:9090 -it --rm --env KEYCLOAK_SERVER_URL=https://keycloak.example.com --env KEYCLOAK_REALM=transmart --env KEYCLOAK_CLIENT_ID=transmart-client thehyve/hypercube-api-server:0.0.2
     ```

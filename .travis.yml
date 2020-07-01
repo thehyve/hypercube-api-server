@@ -15,3 +15,9 @@ deploy:
   script: "cp .travis/settings.xml $HOME/.m2/settings.xml && mvn -DskipTests deploy"
   on:
     branch: release
+
+# For deployment to Docker Hub, configure the `DOCKER_USERNAME` and `DOCKER_PASSWORD` variables:
+# - `travis env set DOCKER_USERNAME ...`
+# - `travis env set DOCKER_PASSWORD ...` (create a new access token for this purpose)
+after_deploy:
+  - travis_retry ./.travis/release_container.sh

@@ -3,6 +3,15 @@ language: java
 jdk: openjdk11
 
 script:
-  -  mvn clean install
+  - mvn clean install
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+# For deployment to Nexus, configure the `NEXUS_USERNAME` and `NEXUS_PASSWORD` variables:
+# - `travis env set NEXUS_USERNAME ...`
+# - `travis env set NEXUS_PASSWORD ...`
+deploy:
+  provider: script
+  script: "cp .travis/settings.xml $HOME/.m2/settings.xml && mvn -DskipTests deploy"
+  on:
+    branch: release

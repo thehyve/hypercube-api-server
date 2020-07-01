@@ -1,18 +1,18 @@
 spring:
   profiles:
-    active: dev
+    active: test
   datasource:
     platform: h2
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:transmartDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-    username: ${db_username:biomart_user}
-    password: ${db_password:biomart_user}
+    username: ${DB_USERNAME:biomart_user}
+    password: ${DB_PASSWORD:biomart_user}
     hikari:
       jdbc-url: jdbc:h2:mem:transmartDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     show-sql: true
 
 keycloak:
-  auth-server-url: https://keycloak-dwh-test.thehyve.net/auth
-  realm: transmart-dev
-  resource: transmart-client
+  auth-server-url: ${KEYCLOAK_SERVER_URL:https://keycloak-dwh-test.thehyve.net}/auth
+  realm: ${KEYCLOAK_REALM:transmart-dev}
+  resource: ${KEYCLOAK_CLIENT_ID:transmart-client}

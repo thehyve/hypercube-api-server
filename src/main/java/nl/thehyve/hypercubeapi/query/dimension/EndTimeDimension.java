@@ -1,12 +1,10 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import org.hibernate.criterion.Projections;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class EndTimeDimension extends I2b2Dimension<Date, Date> {

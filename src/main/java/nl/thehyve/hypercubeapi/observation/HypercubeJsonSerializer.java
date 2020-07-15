@@ -3,18 +3,12 @@
 package nl.thehyve.hypercubeapi.observation;
 
 import com.google.gson.stream.JsonWriter;
-import nl.thehyve.hypercubeapi.query.dimension.Dimension;
-import nl.thehyve.hypercubeapi.query.dimension.Property;
-import nl.thehyve.hypercubeapi.query.hypercube.Hypercube;
-import nl.thehyve.hypercubeapi.query.hypercube.HypercubeValue;
+import nl.thehyve.hypercubeapi.query.dimension.*;
+import nl.thehyve.hypercubeapi.query.hypercube.*;
 import org.transmartproject.common.dto.Field;
-import org.transmartproject.common.type.SortOrder;
-import org.transmartproject.common.type.ValueType;
+import org.transmartproject.common.type.*;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;

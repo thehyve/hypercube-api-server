@@ -9,8 +9,7 @@ import org.transmartproject.common.type.DimensionType;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 @Data @NoArgsConstructor
 public abstract class DimensionImpl<KeyType, ElementType> implements Dimension<KeyType, ElementType> {

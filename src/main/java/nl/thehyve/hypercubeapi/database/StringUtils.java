@@ -2,9 +2,7 @@
 
 package nl.thehyve.hypercubeapi.database;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.LikeExpression;
-import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.*;
 
 public class StringUtils {
 

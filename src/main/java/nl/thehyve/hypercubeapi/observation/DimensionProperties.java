@@ -1,12 +1,9 @@
 package nl.thehyve.hypercubeapi.observation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.transmartproject.common.dto.Field;
-import org.transmartproject.common.type.DimensionType;
-import org.transmartproject.common.type.ValueType;
+import org.transmartproject.common.type.*;
 
 import java.util.List;
 

@@ -5,8 +5,7 @@ import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import nl.thehyve.hypercubeapi.type.Density;
 import org.transmartproject.common.type.DimensionType;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public interface Dimension<KeyType, ElementType> {
 

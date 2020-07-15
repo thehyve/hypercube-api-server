@@ -1,13 +1,11 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
-import nl.thehyve.hypercubeapi.patient.PatientEntity;
-import nl.thehyve.hypercubeapi.patient.PatientRepository;
+import nl.thehyve.hypercubeapi.patient.*;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import org.hibernate.criterion.Projections;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class PatientDimension extends I2b2Dimension<Long, PatientEntity> {

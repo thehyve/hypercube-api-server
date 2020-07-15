@@ -1,13 +1,10 @@
 package nl.thehyve.hypercubeapi.study;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.transmartproject.common.dto.Study;
-import org.transmartproject.common.dto.StudyList;
+import org.springframework.web.bind.annotation.*;
+import org.transmartproject.common.dto.*;
 import org.transmartproject.common.resource.StudyResource;
 
 @RestController

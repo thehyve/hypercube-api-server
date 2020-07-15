@@ -2,8 +2,7 @@ package nl.thehyve.hypercubeapi.study;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.transmartproject.common.dto.Study;
-import org.transmartproject.common.dto.StudyList;
+import org.transmartproject.common.dto.*;
 import org.transmartproject.common.exception.ResourceNotFound;
 
 import javax.transaction.Transactional;

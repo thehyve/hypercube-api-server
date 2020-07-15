@@ -1,13 +1,11 @@
 package nl.thehyve.hypercubeapi.query;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.transmartproject.common.constraint.Constraint;
 import org.transmartproject.common.type.Operator;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data @Builder

@@ -1,7 +1,6 @@
 package nl.thehyve.hypercubeapi.type;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import javax.persistence.*;
 
 @Converter(autoApply = true)
 public class PackableTypeConverter implements AttributeConverter<Packable, String> {

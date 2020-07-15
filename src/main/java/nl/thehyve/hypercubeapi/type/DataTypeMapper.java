@@ -3,9 +3,7 @@ package nl.thehyve.hypercubeapi.type;
 import org.mapstruct.Mapper;
 import org.transmartproject.common.type.DataType;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")

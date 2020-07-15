@@ -2,18 +2,15 @@ package nl.thehyve.hypercubeapi.query.dimension;
 
 import com.google.common.collect.ImmutableList;
 import nl.thehyve.hypercubeapi.concept.ConceptRepository;
-import nl.thehyve.hypercubeapi.dimension.DimensionEntity;
-import nl.thehyve.hypercubeapi.dimension.DimensionRepository;
+import nl.thehyve.hypercubeapi.dimension.*;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
 import nl.thehyve.hypercubeapi.patient.PatientRepository;
 import nl.thehyve.hypercubeapi.study.StudyRepository;
 import nl.thehyve.hypercubeapi.trialvisit.TrialVisitRepository;
 import nl.thehyve.hypercubeapi.visit.VisitRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;

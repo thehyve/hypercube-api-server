@@ -1,10 +1,8 @@
 package nl.thehyve.hypercubeapi.type;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public enum Density {
 

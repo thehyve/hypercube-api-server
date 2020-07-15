@@ -3,14 +3,10 @@ package nl.thehyve.hypercubeapi.query.dimension;
 import lombok.Data;
 import nl.thehyve.hypercubeapi.query.HibernateCriteriaQueryBuilder;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
-import nl.thehyve.hypercubeapi.study.StudyEntity;
-import nl.thehyve.hypercubeapi.study.StudyRepository;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Subqueries;
+import nl.thehyve.hypercubeapi.study.*;
+import org.hibernate.criterion.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class StudyDimension extends I2b2Dimension<String, StudyEntity> {

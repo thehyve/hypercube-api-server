@@ -2,12 +2,10 @@ package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
-import nl.thehyve.hypercubeapi.visit.VisitEntity;
-import nl.thehyve.hypercubeapi.visit.VisitRepository;
+import nl.thehyve.hypercubeapi.visit.*;
 import org.hibernate.criterion.Projections;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class VisitDimension extends I2b2NullablePKDimension<Long, VisitEntity> {

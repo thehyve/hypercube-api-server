@@ -2,8 +2,7 @@ package nl.thehyve.hypercubeapi.type;
 
 import org.transmartproject.common.type.Sex;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import javax.persistence.*;
 
 @Converter(autoApply = true)
 public class SexTypeConverter implements AttributeConverter<Sex, String> {

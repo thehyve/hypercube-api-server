@@ -3,8 +3,7 @@ package nl.thehyve.hypercubeapi.tree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.transmartproject.common.dto.Forest;
-import org.transmartproject.common.dto.TreeNode;
+import org.transmartproject.common.dto.*;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;

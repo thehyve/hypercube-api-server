@@ -1,7 +1,6 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 
 import java.util.List;

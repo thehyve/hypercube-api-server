@@ -1,15 +1,11 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.text.*;
+import java.util.*;
 
 @Data
 public class StartTimeDimension extends I2b2NullablePKDimension<Date, Date> {

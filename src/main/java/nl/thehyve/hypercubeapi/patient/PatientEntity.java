@@ -1,8 +1,6 @@
 package nl.thehyve.hypercubeapi.patient;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.transmartproject.common.type.Sex;
 
 import javax.persistence.*;

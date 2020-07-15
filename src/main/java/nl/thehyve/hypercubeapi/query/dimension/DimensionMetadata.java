@@ -8,14 +8,12 @@ import nl.thehyve.hypercubeapi.visit.VisitEntity;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
 import nl.thehyve.hypercubeapi.observation.ObservationEntity;
 import nl.thehyve.hypercubeapi.study.StudyEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.transmartproject.common.constraint.Field;
 import org.transmartproject.common.type.DataType;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 import static nl.thehyve.hypercubeapi.query.dimension.Dimension.ImplementationType.*;
 

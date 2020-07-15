@@ -1,22 +1,15 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import nl.thehyve.hypercubeapi.dimension.DimensionEntity;
-import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
-import nl.thehyve.hypercubeapi.query.hypercube.ProjectionMap;
-import nl.thehyve.hypercubeapi.type.Density;
-import nl.thehyve.hypercubeapi.type.ObservationValueMapper;
-import nl.thehyve.hypercubeapi.type.ValueType;
-import nl.thehyve.hypercubeapi.type.ValueTypeMapper;
+import nl.thehyve.hypercubeapi.query.hypercube.*;
+import nl.thehyve.hypercubeapi.type.*;
 import org.apache.commons.lang.NotImplementedException;
 import org.mapstruct.factory.Mappers;
 import org.transmartproject.common.type.DimensionType;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ModifierDimension is currently only implemented for serializable types. If desired, the implementation could be

@@ -1,13 +1,11 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
 import lombok.Data;
-import nl.thehyve.hypercubeapi.concept.ConceptEntity;
-import nl.thehyve.hypercubeapi.concept.ConceptRepository;
+import nl.thehyve.hypercubeapi.concept.*;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import org.hibernate.criterion.Projections;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class ConceptDimension extends I2b2NullablePKDimension<String, ConceptEntity> {

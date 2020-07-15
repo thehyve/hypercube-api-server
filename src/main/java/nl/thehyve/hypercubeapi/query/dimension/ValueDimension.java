@@ -1,12 +1,10 @@
 package nl.thehyve.hypercubeapi.query.dimension;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import nl.thehyve.hypercubeapi.query.hypercube.HypercubeQuery;
 import org.apache.commons.lang.NotImplementedException;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This is a fake dimension. It is only used in the query builder.

@@ -2,13 +2,14 @@
 
 package nl.thehyve.hypercubeapi.query;
 
-import nl.thehyve.hypercubeapi.database.InQuery;
-import nl.thehyve.hypercubeapi.database.StringUtils;
+import nl.thehyve.hypercubeapi.database.*;
 import nl.thehyve.hypercubeapi.dimension.DimensionEntity;
 import nl.thehyve.hypercubeapi.concept.ConceptEntity;
 import nl.thehyve.hypercubeapi.observation.ModifierEntity;
 import nl.thehyve.hypercubeapi.query.dimension.Dimension;
 import nl.thehyve.hypercubeapi.trialvisit.TrialVisitEntity;
+import nl.thehyve.hypercubeapi.type.*;
+import nl.thehyve.hypercubeapi.type.ValueType;
 import nl.thehyve.hypercubeapi.visit.VisitEntity;
 import nl.thehyve.hypercubeapi.exception.QueryBuilderException;
 import nl.thehyve.hypercubeapi.observation.ObservationEntity;
@@ -16,28 +17,21 @@ import nl.thehyve.hypercubeapi.patient.PatientMappingEntity;
 import nl.thehyve.hypercubeapi.patientset.PatientSetCollectionEntity;
 import nl.thehyve.hypercubeapi.query.dimension.DimensionRegistry;
 import nl.thehyve.hypercubeapi.study.StudyEntity;
-import nl.thehyve.hypercubeapi.type.DataTypeMapper;
-import nl.thehyve.hypercubeapi.type.ValueType;
-import nl.thehyve.hypercubeapi.query.dimension.DimensionMetadata;
-import nl.thehyve.hypercubeapi.query.dimension.ModifierDimension;
-import nl.thehyve.hypercubeapi.relation.RelationEntity;
-import nl.thehyve.hypercubeapi.relation.RelationTypeEntity;
+import nl.thehyve.hypercubeapi.query.dimension.*;
+import nl.thehyve.hypercubeapi.relation.*;
 import org.apache.commons.lang.NotImplementedException;
 import org.hibernate.criterion.*;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.mapstruct.factory.Mappers;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.transmartproject.common.constraint.*;
 import org.transmartproject.common.dto.Study;
-import org.transmartproject.common.type.DataType;
-import org.transmartproject.common.type.Operator;
+import org.transmartproject.common.type.*;
 import org.transmartproject.common.validation.DataTypeValidation;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 import java.util.stream.Collectors;
 

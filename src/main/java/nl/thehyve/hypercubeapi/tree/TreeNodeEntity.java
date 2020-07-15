@@ -3,14 +3,11 @@ package nl.thehyve.hypercubeapi.tree;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.transmartproject.common.type.TreeNodeType;
-import org.transmartproject.common.type.VisualAttribute;
+import org.transmartproject.common.type.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.EnumSet;
-import java.util.List;
+import javax.validation.constraints.*;
+import java.util.*;
 
 @Entity
 @Table(schema = "i2b2metadata", name = "i2b2_secure")

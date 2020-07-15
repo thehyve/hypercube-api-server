@@ -3,12 +3,8 @@ package nl.thehyve.hypercubeapi.observation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.transmartproject.common.dto.CategoricalValueAggregates;
-import org.transmartproject.common.dto.ConstraintParameter;
-import org.transmartproject.common.dto.Counts;
-import org.transmartproject.common.dto.NumericalValueAggregates;
+import org.springframework.web.bind.annotation.*;
+import org.transmartproject.common.dto.*;
 import org.transmartproject.common.resource.AggregateResource;
 
 import javax.validation.Valid;

@@ -3,14 +3,8 @@ package nl.thehyve.hypercubeapi.observation;
 import nl.thehyve.hypercubeapi.query.HibernateCriteriaQueryBuilder;
 import nl.thehyve.hypercubeapi.query.dimension.DimensionRegistry;
 import nl.thehyve.hypercubeapi.type.ValueType;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.*;
+import org.hibernate.criterion.*;
 import org.hibernate.internal.StatelessSessionImpl;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
@@ -18,15 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.transmartproject.common.constraint.Constraint;
-import org.transmartproject.common.dto.CategoricalValueAggregates;
-import org.transmartproject.common.dto.Counts;
-import org.transmartproject.common.dto.NumericalValueAggregates;
+import org.transmartproject.common.dto.*;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service

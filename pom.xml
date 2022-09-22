@@ -24,7 +24,7 @@
 		<liquibase.version>3.10.0</liquibase.version>
 		<lombok.version>1.18.12</lombok.version>
 		<mapstruct.version>1.3.1.Final</mapstruct.version>
-		<postgresql.version>42.2.14</postgresql.version>
+		<postgresql.version>42.5.0</postgresql.version>
 		<spring-security-oauth2.version>2.5.0.RELEASE</spring-security-oauth2.version>
 		<transmart-lib.version>0.0.9</transmart-lib.version>
 		<wiremock.version>2.26.3</wiremock.version>
